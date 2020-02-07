@@ -29,8 +29,9 @@ AND system_type_id=231");
                 return new Status
                 {
                     CanFix = false,
+                    ResultType = Umbraco.Web.HealthCheck.StatusResultType.Warning,
                     Message = "Multiple collations",
-                    Description = "Database contains columns with multiple collations"
+                    Description = "Database contains columns with different collations"
                 };
             }
             else if (databaseCollation != tableCollations.First())
@@ -38,6 +39,7 @@ AND system_type_id=231");
                 return new Status
                 {
                     CanFix = false,
+                    ResultType = Umbraco.Web.HealthCheck.StatusResultType.Warning,
                     Message = "Multiple collations",
                     Description = "Database collation does not match column collations"
                 };

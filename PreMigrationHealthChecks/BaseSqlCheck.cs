@@ -21,6 +21,7 @@ namespace PreMigrationHealthChecks
             public string Description { get; set; }
             public string FixDescription { get; set; }
             public bool CanFix { get; set; }
+            public StatusResultType? ResultType { get; set; }
         }
     }
 }

@@ -44,7 +44,7 @@ namespace PreMigrationHealthChecks
                     yield return new HealthCheckStatus(status.Message)
                     {
                         Description = status.Description,
-                        ResultType = StatusResultType.Error,
+                        ResultType = status.ResultType ?? StatusResultType.Error,
                         Actions = status.CanFix
                             ? new HealthCheckAction[] { new HealthCheckAction(check.Key, Id) { Name = "Fix", Description = status.FixDescription } }
                             : Array.Empty<HealthCheckAction>()
