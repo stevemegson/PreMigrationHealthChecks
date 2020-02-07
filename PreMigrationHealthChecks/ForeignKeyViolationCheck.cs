@@ -7,14 +7,14 @@ using Umbraco.Web.HealthCheck;
 
 namespace PreMigrationHealthChecks
 {
-    public class ForeignKeyCheck : BaseSqlCheck
+    public class ForeignKeyViolationCheck : BaseSqlCheck
     {
         public string ParentTable { get; set; }
         public string ParentColumn { get; set; }
         public string ChildTable { get; set; }
         public string ChildColumn { get; set; }
 
-        public ForeignKeyCheck(string parentTable, string parentColumn, string childTable, string childColumn)
+        public ForeignKeyViolationCheck(string parentTable, string parentColumn, string childTable, string childColumn)
         {
             ParentTable = parentTable;
             ParentColumn = parentColumn;

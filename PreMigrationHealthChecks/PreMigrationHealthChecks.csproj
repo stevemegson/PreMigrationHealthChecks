@@ -216,10 +216,11 @@
   <ItemGroup>
     <Compile Include="BaseHealthCheck.cs" />
     <Compile Include="CollationCheck.cs" />
-    <Compile Include="ForeignKeyCheck.cs" />
+    <Compile Include="CustomForeignKeyCheck.cs" />
+    <Compile Include="ForeignKeyViolationCheck.cs" />
     <Compile Include="HealthChecks\OtherChecks.cs" />
     <Compile Include="HealthChecks\DuplicateChecks.cs" />
-    <Compile Include="HealthChecks\ForeignKeyChecks.cs" />
+    <Compile Include="HealthChecks\ForeignKeyViolationChecks.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="BaseSqlCheck.cs" />
     <Compile Include="SqlCheck.cs" />

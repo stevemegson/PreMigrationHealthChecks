@@ -9,22 +9,22 @@ using Umbraco.Web.HealthCheck;
 namespace PreMigrationHealthChecks.HealthChecks
 {
     [HealthCheck(_id, "Foreign keys", Description = "Checks for violations of foreign keys which will be created during migration", Group = "Migration")]
-    public class ForeignKeyChecks : BaseHealthCheck
+    public class ForeignKeyViolationChecks : BaseHealthCheck
     {
         private const string _id = "5343F742-3362-4FBD-A670-FCFB19AE6611";
         protected override IEnumerable<BaseSqlCheck> Checks => _checks;
 
-        public ForeignKeyChecks(HealthCheckContext healthCheckContext) : base(healthCheckContext)
+        public ForeignKeyViolationChecks(HealthCheckContext healthCheckContext) : base(healthCheckContext)
         {
         }
 
         private static IEnumerable<BaseSqlCheck> _checks = new List<BaseSqlCheck> {
-            new ForeignKeyCheck("cmsContent", "nodeId",           "cmsContentVersion", "contentId"),
-            new ForeignKeyCheck("umbracoNode", "id",              "cmsContentVersion", "contentId"),
-            new ForeignKeyCheck("cmsContentVersion", "VersionId", "cmsPropertyData", "versionId"),
-            new ForeignKeyCheck("cmsPropertyType", "id",          "cmsPropertyData", "propertyTypeId"),
-            new ForeignKeyCheck("umbracoNode", "id",              "cmsDataType", "nodeId"),
-            new ForeignKeyCheck("cmsContentVersion", "VersionId", "cmsMedia", "versionId"),
+            new ForeignKeyViolationCheck("cmsContent", "nodeId",           "cmsContentVersion", "contentId"),
+            new ForeignKeyViolationCheck("umbracoNode", "id",              "cmsContentVersion", "contentId"),
+            new ForeignKeyViolationCheck("cmsContentVersion", "VersionId", "cmsPropertyData", "versionId"),
+            new ForeignKeyViolationCheck("cmsPropertyType", "id",          "cmsPropertyData", "propertyTypeId"),
+            new ForeignKeyViolationCheck("umbracoNode", "id",              "cmsDataType", "nodeId"),
+            new ForeignKeyViolationCheck("cmsContentVersion", "VersionId", "cmsMedia", "versionId"),
 
             new SqlCheck
             {
