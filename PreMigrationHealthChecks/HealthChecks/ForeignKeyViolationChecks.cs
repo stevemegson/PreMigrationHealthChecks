@@ -1,4 +1,5 @@
 ﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -48,11 +49,11 @@ namespace PreMigrationHealthChecks.HealthChecks
             new ForeignKeyViolationCheck("umbracoNode", "id",              "umbracoAccess", "noAccessNodeId"),
             new ForeignKeyViolationCheck("umbracoNode", "id",              "umbracoAccess", "nodeId"),
             new ForeignKeyViolationCheck("umbracoAccess", "id",            "umbracoAccessRule", "accessId"),
-            new ForeignKeyViolationCheck("cmsContentType", "nodeId",       "cmsContent", "contentTypeId"),
+            new ForeignKeyViolationCheck("cmsContentType", "nodeId",       "cmsContent", "contentType"),
             new ForeignKeyViolationCheck("umbracoNode", "id",              "cmsContent", "nodeId"),
             new ForeignKeyViolationCheck("cmsContent", "nodeId",           "cmsContentVersion", "contentId"),
             new ForeignKeyViolationCheck("umbracoNode", "id",              "cmsContentVersion", "contentId"),
-            new ForeignKeyViolationCheck("umbracoUser", "id",              "cmsContentVersion", "userId"),
+            //new ForeignKeyViolationCheck("umbracoUser", "id",              "cmsDocument", "documentUser"),
             new ForeignKeyViolationCheck("umbracoNode", "id",              "cmsDataType", "nodeId"),
             new ForeignKeyViolationCheck("cmsContent", "nodeId",           "cmsDocument", "nodeId"),
             new ForeignKeyViolationCheck("cmsContentVersion", "VersionId", "cmsDocument", "versionId"),
@@ -60,7 +61,7 @@ namespace PreMigrationHealthChecks.HealthChecks
             new ForeignKeyViolationCheck("umbracoUser", "id",              "umbracoLog", "userId"),
             new ForeignKeyViolationCheck("cmsContentVersion", "VersionId", "cmsMedia", "versionId"),
             new ForeignKeyViolationCheck("umbracoNode", "id",              "umbracoNode", "parentId"),
-            new ForeignKeyViolationCheck("umbracoUser", "id",              "umbracoNode", "nodeUser"),
+            //new ForeignKeyViolationCheck("umbracoUser", "id",              "umbracoNode", "nodeUser"),
             new ForeignKeyViolationCheck("cmsContentVersion", "VersionId", "cmsPropertyData", "versionId"),
             new ForeignKeyViolationCheck("cmsPropertyType", "id",          "cmsPropertyData", "propertyTypeId"),
             new ForeignKeyViolationCheck("umbracoNode", "uniqueID",        "umbracoRedirectUrl", "contentKey"),
