@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlServerCe;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -36,18 +37,32 @@ namespace PreMigrationHealthChecks
 
             foreach (var check in Checks)
             {
-                BaseSqlCheck.Status status = check.GetStatus(_databaseContext.Database);
+                BaseSqlCheck.Status status = null;
+                try
+                {
+                    status = check.GetStatus(_databaseContext.Database);
+                }
+                catch(SqlCeException ex)
+                {
+                    status = new BaseSqlCheck.Status
+                    {
+                        Message = $"Check {check.Key} can't run on SQL CE",
+                        Description = ex.Message,
+                        CanFix = false,
+                        ResultType = StatusResultType.Info
+                    };
+                }
+
                 if (status != null)
                 {
                     success = false;
-
                     yield return new HealthCheckStatus(status.Message)
                     {
                         Description = status.Description,
                         ResultType = status.ResultType ?? StatusResultType.Error,
                         Actions = status.CanFix
-                            ? new HealthCheckAction[] { new HealthCheckAction(check.Key, Id) { Name = "Fix", Description = status.FixDescription } }
-                            : Array.Empty<HealthCheckAction>()
+                                ? new HealthCheckAction[] { new HealthCheckAction(check.Key, Id) { Name = "Fix", Description = status.FixDescription } }
+                                : Array.Empty<HealthCheckAction>()
                     };
                 }
             }

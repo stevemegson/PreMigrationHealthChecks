@@ -94,9 +94,9 @@ JOIN (
                 FixDescription = "Set to '(blank)'"
             },
 
-            new CustomForeignKeyCheck(),
+            new CustomForeignKeyCheck() { Key = "custom-foreign-key" },
 
-            new CollationCheck(),
+            new CollationCheck() { Key = "collation" },
         };
     }
 }
