@@ -36,6 +36,16 @@ namespace PreMigrationHealthChecks.HealthChecks
                 ErrorMessage = "Duplicate cmsTags",
                 ErrorDescription = "cmsTags contains {0} rows for duplicate group/tag",
                 FixDescription = "Delete {0} rows in cmsTags"
+            },
+
+            new SqlCheck
+            {
+                Key = "umbracoAccessRule",
+                TestQuery = "SELECT COUNT(*) FROM umbracoAccessRule WHERE id NOT IN (SELECT MIN(id) FROM umbracoAccessRule GROUP BY [ruleValue], [accessId] HAVING MIN(id) IS NOT NULL)",
+                FixQuery = "DELETE FROM umbracoAccessRule WHERE id NOT IN (SELECT MIN(id) FROM umbracoAccessRule GROUP BY [ruleValue], [accessId] HAVING MIN(id) IS NOT NULL)",
+                ErrorMessage = "Duplicate umbracoAccessRules",
+                ErrorDescription = "umbracoAccessRule contains {0} rows for duplicate accessId/ruleValue - content/memberGroup",
+                FixDescription = "Delete {0} rows in umbracoAccessRule"
             }
         };
     }
