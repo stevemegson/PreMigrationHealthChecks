@@ -26,14 +26,15 @@ namespace PreMigrationHealthChecks
 
         public override Status GetStatus(Database db)
         {
-            int count = db.ExecuteScalar<int>($"SELECT COUNT(*) FROM {ChildTable} WHERE {ChildColumn} NOT IN (SELECT {ParentColumn} FROM {ParentTable})");
+            string query = $"SELECT COUNT(*) FROM {ChildTable} WHERE {ChildColumn} NOT IN (SELECT {ParentColumn} FROM {ParentTable})";
+            int count = db.ExecuteScalar<int>(query);
             if (count > 0)
             {
                 return new Status
                 {
                     CanFix = true,
                     Message = "Foreign key violation in " + ChildTable,
-                    Description = $"{ChildTable} contains {count} {ChildColumn} values which don't exist in {ParentTable}.{ParentColumn}.",
+                    Description = $"{ChildTable} contains {count} {ChildColumn} values which don't exist in {ParentTable}.{ParentColumn}.<div class='umb-healthcheck-group__details-status-action'>{query.Replace("COUNT(*)", "TOP 100 *")}</div>",
                     FixDescription = $"Delete {count} rows from {ChildTable}"
                 };
             }
