@@ -22,6 +22,8 @@ namespace PreMigrationHealthChecks
             int result = db.ExecuteScalar<int>(TestQuery);
             if (result > 0)
             {
+                ErrorDescription = string.Concat(ErrorDescription,
+                    $"<div class='umb-healthcheck-group__details-status-action'>{TestQuery.Replace("COUNT(*)", "TOP 100 *")}</div>");
                 return new Status
                 {
                     Message = String.Format(ErrorMessage, result),
